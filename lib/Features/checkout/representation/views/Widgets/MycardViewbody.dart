@@ -28,12 +28,12 @@ class Mycardviewbody extends StatelessWidget {
           Custombutton(
             name: 'Complete Payment',
             onPressed: () {
-              Navigator.push(
+              /* Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => Paymentview()),
-              );
+              );*/
 
-              /* showBottomSheet(
+              showBottomSheet(
                 context: context,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -41,7 +41,7 @@ class Mycardviewbody extends StatelessWidget {
                 builder: (context) {
                   return PaymentMethodBottomSheet();
                 },
-              );*/
+              );
             },
           ),
           SizedBox(height: 12),

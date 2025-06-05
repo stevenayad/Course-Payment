@@ -5,7 +5,7 @@ class PaymentMethodItem extends StatelessWidget {
   const PaymentMethodItem({
     super.key,
     required this.isActive,
-     required this.image,
+    required this.image,
   });
 
   final bool isActive;
@@ -30,18 +30,15 @@ class PaymentMethodItem extends StatelessWidget {
             blurRadius: 4,
             offset: const Offset(0, 0),
             spreadRadius: 0,
-          )
+          ),
         ],
       ),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15), color: Colors.white),
-        child: Center(
-          child: SvgPicture.asset(
-            image,
-            
-          ),
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
         ),
+        child: Center(child: SvgPicture.asset(image)),
       ),
     );
   }
