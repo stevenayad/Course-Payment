@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
+import 'package:payment/Features/checkout/data/repos/checkout_repo_implemtation.dart';
+import 'package:payment/Features/checkout/representation/manger/PaymentCubit/PaymentCubit.dart';
 import 'package:payment/Features/checkout/representation/views/PaymentView.dart';
 import 'package:payment/Features/checkout/representation/views/Widgets/paymenmethodtlistview.dart';
 import 'package:payment/Features/checkout/representation/views/Widgets/paymentMethodBottomSheet.dart';
@@ -39,7 +42,11 @@ class Mycardviewbody extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 builder: (context) {
-                  return PaymentMethodBottomSheet();
+                  return BlocProvider(
+                    create:
+                        (context) => PaymentCubit(CheckoutRepoImplemtation()),
+                    child: PaymentMethodBottomSheet(),
+                  );
                 },
               );
             },
