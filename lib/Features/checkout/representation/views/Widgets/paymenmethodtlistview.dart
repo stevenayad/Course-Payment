@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:payment/Features/checkout/representation/views/Widgets/Payment_method_item.dart';
 
 class paymenmethodtlistview extends StatefulWidget {
-  const paymenmethodtlistview({super.key});
-
+  const paymenmethodtlistview({super.key, required this.changeMethodpayment});
+  final Function({required int index}) changeMethodpayment;
   @override
   State<paymenmethodtlistview> createState() => _paymenmethodtlistviewState();
 }
@@ -15,7 +15,6 @@ class _paymenmethodtlistviewState extends State<paymenmethodtlistview> {
     List<String> items = const [
       'assets/images/Card.svg',
       'assets/images/paypal.svg',
-      'assets/images/pay.svg',
     ];
     return SizedBox(
       height: 62,
@@ -28,6 +27,7 @@ class _paymenmethodtlistviewState extends State<paymenmethodtlistview> {
             child: GestureDetector(
               onTap: () {
                 activeindex = index;
+                widget.changeMethodpayment(index: index);
                 setState(() {});
               },
               child: PaymentMethodItem(

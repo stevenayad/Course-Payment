@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:payment/Core/Utilies/Faliure.dart';
 import 'package:payment/Core/Utilies/SctripeScrevice.dart';
 import 'package:payment/Core/Utilies/apiService.dart';
@@ -15,6 +16,8 @@ class CheckoutRepoImplemtation extends CheckoutRepo {
     try {
       await apiservice.makepayment(paymet: PaymentIntentInputModel);
       return Right(null);
+    } on StripeException catch (e) {
+      return Left(ServerFailure(errMessage: e.error.message ?? ''));
     } catch (e) {
       return Left(ServerFailure(errMessage: e.toString()));
     }

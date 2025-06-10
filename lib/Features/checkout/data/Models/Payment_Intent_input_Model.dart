@@ -14,7 +14,7 @@ class PaymentIntentInputModel {
       'amount': num.parse(amount) * 100,
       'currency': Currency,
       'payment_method_types[]': 'card',
-      'customer' : Customerid, 
+      'customer': Customerid,
     };
   }
 }

@@ -4,11 +4,29 @@ import 'package:payment/Features/checkout/data/Models/Payment_Intent_input_Model
 import 'package:payment/Features/checkout/representation/manger/PaymentCubit/PaymentCubit.dart';
 import 'package:payment/Features/checkout/representation/manger/PaymentCubit/paymentstate.dart';
 import 'package:payment/Features/checkout/representation/views/ThankyouView.dart';
+import 'package:payment/Features/checkout/representation/views/Widgets/CustombuttonBlocCunsomer.dart';
 import 'package:payment/Features/checkout/representation/views/Widgets/paymenmethodtlistview.dart';
 import 'package:payment/widget/CustomButton..dart';
 
-class PaymentMethodBottomSheet extends StatelessWidget {
+class PaymentMethodBottomSheet extends StatefulWidget {
   const PaymentMethodBottomSheet({super.key});
+
+  @override
+  State<PaymentMethodBottomSheet> createState() =>
+      _PaymentMethodBottomSheetState();
+}
+
+class _PaymentMethodBottomSheetState extends State<PaymentMethodBottomSheet> {
+  bool ispaybool = false;
+
+  void changepaymentMethod({required int index}) {
+    if (index == 0) {
+      ispaybool = false;
+    } else if (index == 1) {
+      ispaybool = true;
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,51 +36,11 @@ class PaymentMethodBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 12),
-          paymenmethodtlistview(),
+          paymenmethodtlistview(changeMethodpayment: changepaymentMethod,),
           SizedBox(height: 32),
-          CustomButtomButtonCusomer(),
+          CustomButtomButtonCusomer(ispaypal: ispaybool),
         ],
       ),
-    );
-  }
-}
-
-class CustomButtomButtonCusomer extends StatelessWidget {
-  const CustomButtomButtonCusomer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<PaymentCubit, Paymentstate>(
-      listener: (context, state) {
-        if (state is PaymentSuceess) {
-          Navigator.of(
-            context,
-          ).push(MaterialPageRoute(builder: (context) => Thankyouview()));
-        }
-
-        if (state is PaymentFailure) {
-          Navigator.of(context).pop();
-          SnackBar snackBar = SnackBar(content: Text(state.errMessage));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-      },
-      builder: (context, state) {
-        return Custombutton(
-          isloading: state is PaymentLoading ? true : false,
-          onPressed: () {
-            PaymentIntentInputModel PaymentIntentInput =
-                PaymentIntentInputModel(
-                  amount: '100',
-                  Currency: 'usd',
-                  Customerid: 'cus_SSKrPNlAa7AdOh',
-                );
-            BlocProvider.of<PaymentCubit>(
-              context,
-            ).makepayment(paymentIntentInputModel: PaymentIntentInput);
-          },
-          name: 'Continue',
-        );
-      },
     );
   }
 }
